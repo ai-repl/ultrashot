@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { track } from "@vercel/analytics";
 
-import { slogan } from "@/lib/constants";
 import { copy, isSupportedImageType, toBase64 } from "@/lib";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,6 @@ export default function Home() {
   const [isGeneratingImage, setGeneratingImage] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageURL, setImageURL] = useState<string | undefined>(undefined);
-  // const [imgAspectRatio, setImgAspectRatio] = useState<string>("16:9");
   const [detailDesc, setDetailDesc] = useState("");
 
   const { complete, completion, isLoading } = useCompletion({
@@ -150,8 +148,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="grow grid grid-cols-3 gap-8 h-full">
-        <div
+      <div className="grow flex flex-col lg:flex-row gap-8 h-full">
+        <section
           className={clsx(
             "rounded-lg border-2 drop-shadow-sm text-neutral-700 dark:text-neutral-300 cursor-pointer border-dashed transition-colors ease-in-out bg-neutral-100 dark:bg-neutral-900 relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
             {
@@ -220,58 +218,56 @@ export default function Home() {
             onChange={handleInputChange}
             accept="image/jpeg, image/png, image/gif, image/webp"
           />
-        </div>
+        </section>
 
-        <div className="space-y-3 basis-1/2 p-3 rounded-md bg-white dark:bg-neutral-900 w-full drop-shadow-sm border-2">
-          <section>
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="font-semibold select-none text-neutral-600 dark:text-neutral-400">
-                Image detail description
-              </h2>
+        <section className="space-y-3 p-3 min-w-sm lg:max-w-md 2xl:max-w-2xl rounded-md bg-white dark:bg-neutral-900 w-full drop-shadow-sm border-2">
+          <div className="flex justify-between items-center mb-2">
+            <h2 className="font-semibold select-none text-neutral-600 dark:text-neutral-400">
+              Image detail description
+            </h2>
 
-              {detailDesc && (
-                <Button
-                  size={"icon"}
-                  variant={"ghost"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    copy(detailDesc);
-                  }}
-                  aria-label="Copy to clipboard"
-                >
-                  <CopyIcon className="w-5 h-5" />
-                </Button>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <Textarea
-                value={detailDesc}
-                onChange={(e) => handleValueChange(e.target.value)}
-                placeholder="The image detail description will be displayed here, and you can modify it later."
-                rows={12}
-                disabled={isLoading || isGeneratingImage || !blobURL}
-              />
-              {isFinished && !detailDesc && (
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 select-none">
-                  No detail description was found in that image.
-                </p>
-              )}
+            {detailDesc && (
               <Button
-                className="w-full"
-                disabled={!detailDesc || isGeneratingImage}
-                onClick={handleRegenerate}
+                size={"icon"}
+                variant={"ghost"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  copy(detailDesc);
+                }}
+                aria-label="Copy to clipboard"
               >
-                {isGeneratingImage && (
-                  <Loader2Icon className="animate-spin size-5 mr-2" />
-                )}
-                {isGeneratingImage ? "Generating" : "Regenerate"}
+                <CopyIcon className="w-5 h-5" />
               </Button>
-            </div>
-          </section>
-        </div>
+            )}
+          </div>
 
-        <div
+          <div className="flex flex-col gap-4">
+            <Textarea
+              value={detailDesc}
+              onChange={(e) => handleValueChange(e.target.value)}
+              placeholder="The image detail description will be displayed here, and you can modify it later."
+              rows={12}
+              disabled={isLoading || isGeneratingImage || !blobURL}
+            />
+            {isFinished && !detailDesc && (
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 select-none">
+                No detail description was found in that image.
+              </p>
+            )}
+            <Button
+              className="w-full"
+              disabled={!detailDesc || isGeneratingImage}
+              onClick={handleRegenerate}
+            >
+              {isGeneratingImage && (
+                <Loader2Icon className="animate-spin size-5 mr-2" />
+              )}
+              {isGeneratingImage ? "Generating" : "Regenerate"}
+            </Button>
+          </div>
+        </section>
+
+        <section
           className={clsx(
             "rounded-lg border-2 drop-shadow-sm text-neutral-700 dark:text-neutral-300 cursor-pointer border-dashed transition-colors ease-in-out bg-neutral-100 dark:bg-neutral-900 relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
             "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
@@ -309,7 +305,7 @@ export default function Home() {
               </>
             )}
           </div>
-        </div>
+        </section>
       </div>
     </>
   );
