@@ -7,11 +7,11 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 
+import { DarkmodeToggle } from "@/components/DarkmodeToggle";
 import Logo from "@/components/Logo";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { siteTitle, slogan } from "@/lib/constants";
-import { DarkmodeToggle } from "@/components/DarkmodeToggle";
-import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: siteTitle,

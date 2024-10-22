@@ -44,6 +44,12 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      copy-image-clipboard:
+        specifier: ^2.1.2
+        version: 2.1.2
+      dom-to-image:
+        specifier: ^2.6.0
+        version: 2.6.0
       geist:
         specifier: ^1.3.1
         version: 1.3.1(next@14.2.0(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -78,6 +84,9 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.13)
     devDependencies:
+      '@types/dom-to-image':
+        specifier: ^2.6.7
+        version: 2.6.7
       '@types/node':
         specifier: ^20.16.11
         version: 20.16.11
@@ -680,6 +689,9 @@ packages:
   '@types/diff-match-patch@1.0.36':
     resolution: {integrity: sha512-xFdR6tkm0MWvBfO8xXCSsinYxHcqkQUlcHeSpMC2ukzOb6lwQAfDmW+Qt0AvlGd8HpsS28qKsB+oPeJn9I39jg==}
 
+  '@types/dom-to-image@2.6.7':
+    resolution: {integrity: sha512-me5VbCv+fcXozblWwG13krNBvuEOm6kA5xoa4RrjDJCNFOZSWR3/QLtOXimBHk1Fisq69Gx3JtOoXtg1N1tijg==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -1025,6 +1037,9 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
+  copy-image-clipboard@2.1.2:
+    resolution: {integrity: sha512-3VCXVl2IpFfOyD8drv9DozcNlwmqBqxOlsgkEGyVAzadjlPk1go8YNZyy8QmTnwHPxSFpeCR9OdsStEdVK7qDA==}
+
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -1118,6 +1133,9 @@ packages:
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
+
+  dom-to-image@2.6.0:
+    resolution: {integrity: sha512-Dt0QdaHmLpjURjU7Tnu3AgYSF2LuOmksSGsUcE6ItvJoCWTBEmiMXcqBdNSAm9+QbbwD7JMoVsuuKX6ZVQv1qA==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -3003,6 +3021,8 @@ snapshots:
 
   '@types/diff-match-patch@1.0.36': {}
 
+  '@types/dom-to-image@2.6.7': {}
+
   '@types/estree@1.0.6': {}
 
   '@types/json5@0.0.29': {}
@@ -3414,6 +3434,8 @@ snapshots:
 
   concat-map@0.0.1: {}
 
+  copy-image-clipboard@2.1.2: {}
+
   cross-spawn@7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -3515,6 +3537,8 @@ snapshots:
   doctrine@3.0.0:
     dependencies:
       esutils: 2.0.3
+
+  dom-to-image@2.6.0: {}
 
   eastasianwidth@0.2.0: {}
 

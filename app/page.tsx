@@ -1,17 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
+import { useCompletion } from "ai/react";
 import clsx from "clsx";
 import { CopyIcon, Loader2Icon } from "lucide-react";
-import { useCompletion } from "ai/react";
-import { toast } from "sonner";
 import Image from "next/image";
-import { track } from "@vercel/analytics";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { copyBlobToClipboard } from "copy-image-clipboard";
 
-import { copy, isSupportedImageType, toBase64 } from "@/lib";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { copy, isSupportedImageType, toBase64 } from "@/lib";
 import { getImageAspectRatio } from "@/lib/image";
+import getRetinaImage from "@/lib/getRetinaImage";
 
 let imgAspectRatio = "16:9";
 
@@ -21,6 +23,7 @@ export default function Home() {
   const [isFinished, setIsFinished] = useState(false);
   const [isGeneratingImage, setGeneratingImage] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const imageEl = useRef<HTMLImageElement>(null);
   const [imageURL, setImageURL] = useState<string | undefined>(undefined);
   const [detailDesc, setDetailDesc] = useState("");
 
@@ -121,6 +124,38 @@ export default function Home() {
     track("Regenerate");
     handleGenerateImage(detailDesc);
   }, [detailDesc]);
+
+  const handleCopy = useCallback(async (url: string) => {
+    track("Copy Image");
+    try {
+      if (!imageEl.current) return;
+      const { imageBlob } = await getRetinaImage(imageEl.current);
+      if (!imageBlob) return;
+      copyBlobToClipboard(imageBlob);
+      toast.success("Image copied to clipboard");
+    } catch (error) {
+      console.error("Error copying image to clipboard:", error);
+      toast.error("Failed to copy image to clipboard");
+    }
+  }, []);
+
+  const handleDownload = useCallback(async (url: string) => {
+    track("Download");
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "generated-image.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Error downloading image:", error);
+    }
+  }, []);
 
   useEffect(() => {
     if (completion) {
@@ -275,6 +310,7 @@ export default function Home() {
         >
           {!isGeneratingImage && imageURL && (
             <Image
+              ref={imageEl}
               src={imageURL}
               unoptimized
               fill
@@ -287,12 +323,24 @@ export default function Home() {
             className={clsx(
               "flex flex-col w-full h-full p-3 items-center justify-center text-center absolute bg-neutral-100/70 dark:bg-neutral-900/70 text-lg",
               {
-                "opacity-0": imageURL,
+                "opacity-0 group-hover:opacity-100 transition ease-in-out":
+                  imageURL,
               }
             )}
           >
             {isGeneratingImage ? (
               <Loader2Icon className="animate-spin size-12" />
+            ) : imageURL ? (
+              <>
+                <div className="flex flex-col gap-4">
+                  {/* <Button onClick={() => handleCopy(imageURL)}>
+                    Copy Image
+                  </Button> */}
+                  <Button onClick={() => handleDownload(imageURL)}>
+                    Download Image
+                  </Button>
+                </div>
+              </>
             ) : (
               <>
                 <p className="font-bold mb-4">Generated Image in real-time</p>
