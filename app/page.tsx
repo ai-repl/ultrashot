@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { track } from "@vercel/analytics";
@@ -26,7 +27,7 @@ export default function Home() {
   const imageEl = useRef<HTMLImageElement>(null);
   const [imageURL, setImageURL] = useState<string | undefined>(undefined);
   const [detailDesc, setDetailDesc] = useState("");
-
+  const [isCopying, setIsCopying] = useState(false);
   const { complete, completion, isLoading } = useCompletion({
     onError: (e) => {
       toast.error(e.message);
@@ -125,13 +126,15 @@ export default function Home() {
     handleGenerateImage(detailDesc);
   }, [detailDesc]);
 
-  const handleCopy = useCallback(async (url: string) => {
+  const handleCopy = useCallback(async (base64: string) => {
     track("Copy Image");
     try {
       if (!imageEl.current) return;
+      setIsCopying(true);
       const { imageBlob } = await getRetinaImage(imageEl.current);
       if (!imageBlob) return;
       copyBlobToClipboard(imageBlob);
+      setIsCopying(false);
       toast.success("Image copied to clipboard");
     } catch (error) {
       console.error("Error copying image to clipboard:", error);
@@ -309,14 +312,14 @@ export default function Home() {
           )}
         >
           {!isGeneratingImage && imageURL && (
-            <Image
-              ref={imageEl}
-              src={imageURL}
-              unoptimized
-              fill
-              className="lg:object-contain object-cover min-h-16"
-              alt="Generated Image"
-            />
+            <div className="flex h-full w-full absolute items-center justify-center text-center">
+              <img
+                ref={imageEl}
+                src={imageURL}
+                className="lg:object-contain object-cover min-h-16"
+                alt="Generated Image"
+              />
+            </div>
           )}
 
           <div
@@ -333,9 +336,12 @@ export default function Home() {
             ) : imageURL ? (
               <>
                 <div className="flex flex-col gap-4">
-                  {/* <Button onClick={() => handleCopy(imageURL)}>
-                    Copy Image
-                  </Button> */}
+                  <Button
+                    onClick={() => handleCopy(imageURL)}
+                    disabled={isCopying}
+                  >
+                    {isCopying ? "Copying..." : "Copy Image"}
+                  </Button>
                   <Button onClick={() => handleDownload(imageURL)}>
                     Download Image
                   </Button>
