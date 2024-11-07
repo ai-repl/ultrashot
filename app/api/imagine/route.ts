@@ -12,7 +12,7 @@ const replicate = new Replicate({
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(5, "1440 m"),
+      limiter: Ratelimit.slidingWindow(3, "1440 m"),
       analytics: true,
     })
   : false;
@@ -43,11 +43,12 @@ export async function POST(req: NextRequest) {
     go_fast: true,
     num_outputs: 1,
     aspect_ratio: aspectRatio,
-    output_format: "webp",
-    output_quality: 80,
+    output_format: "jpg",
+    output_quality: 92,
   };
 
-  const output = await replicate.run("black-forest-labs/flux-schnell", {
+  // const output = await replicate.run("black-forest-labs/flux-schnell", {
+  const output = await replicate.run("black-forest-labs/flux-1.1-pro-ultra", {
     input,
   });
 

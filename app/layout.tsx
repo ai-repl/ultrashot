@@ -62,20 +62,15 @@ export default function RootLayout({
                 </Button>
                 &
                 <Button variant="link" className="underline">
-                  <Link
-                    href="https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell"
-                    target="_blank"
-                  >
-                    Flux Schnell
+                  <Link href="https://blackforestlabs.ai/" target="_blank">
+                    Flux1.1 Pro Ultra
                   </Link>
                 </Button>
               </p>
               <p>
-                <a href="https://github.com/xiaoluoboding/img2txt2img">
-                  GitHub
-                </a>{" "}
+                <a href="https://github.com/xiaoluoboding/ultrashot">GitHub</a>{" "}
                 / <a href="https://x.com/robert_shaw_x">Twitter</a> /{" "}
-                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fxiaoluoboding%2Fimg2txt2voice&env=OPENAI_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN&demo-title=img2txt2img&demo-description=Image%20to%20text%20to%20audio%2C%20accurate%2C%20fast.&demo-url=https%3A%2F%2Fimg2txt2img.vercel.app%2F&demo-image=https%3A%2F%2Fimg2txt2img.vercel.app%2Fopengraph-image.png&skippable-integrations=1">
+                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fxiaoluoboding%2Fultrashot&env=OPENAI_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN&demo-title=ultrashot&demo-description=Image%20to%20text%20to%20audio%2C%20accurate%2C%20fast.&demo-url=https%3A%2F%2Fultrashot.vercel.app%2F&demo-image=https%3A%2F%2Fultrashot.vercel.app%2Fopengraph-image.png&skippable-integrations=1">
                   Deploy
                 </a>
               </p>

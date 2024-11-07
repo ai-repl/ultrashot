@@ -48,7 +48,7 @@ export default function Home() {
       body: JSON.stringify({ prompt, aspectRatio: imgAspectRatio }),
     });
     const data = await response.json();
-    setImageURL(data.data?.[0] || "");
+    setImageURL(data.data || "");
     setGeneratingImage(false);
     return data.data;
   }, []);
