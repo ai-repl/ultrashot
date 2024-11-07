@@ -1,6 +1,6 @@
 {
 	"name": "ultrashot",
-	"description": "Image to text to Image, reimagine, fast.",
+	"description": "Image to text to Image, reimagine, ultra-fast, high-quality.",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
