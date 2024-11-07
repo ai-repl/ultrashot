@@ -328,14 +328,12 @@ export default function Home() {
           )}
         >
           {!isGeneratingImage && imageURL && (
-            <div className="flex h-full w-full absolute items-center justify-center text-center">
-              <img
-                ref={imageEl}
-                src={imageURL}
-                className="lg:object-contain object-cover min-h-16"
-                alt="Generated Image"
-              />
-            </div>
+            <img
+              ref={imageEl}
+              src={imageURL}
+              className="absolute inset-0 w-full h-full text-transparent lg:object-contain object-cover min-h-16"
+              alt="Generated Image"
+            />
           )}
 
           <div
