@@ -57,7 +57,7 @@ export async function POST(req: Request) {
   }
 
   const openai = createOpenAI({
-    apiKey: openaiApiKey ?? process.env.OPENAI_API_KEY,
+    apiKey: openaiApiKey !== "" ? openaiApiKey : process.env.OPENAI_API_KEY,
   });
 
   const response = await streamText({

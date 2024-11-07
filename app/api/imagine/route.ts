@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   const { prompt, aspectRatio, replicateKey } = await req.json();
 
   const replicate = new Replicate({
-    auth: replicateKey ?? process.env.REPLICATE_API_KEY,
+    auth: replicateKey !== "" ? replicateKey : process.env.REPLICATE_API_KEY,
     useFileOutput: false,
   });
 
