@@ -14,7 +14,7 @@ const ApiConfigMenu = () => {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size={"icon"}>
-          <SparklesIcon className="h-4 w-4 mr-2" />
+          <SparklesIcon className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-96 p-4 m-0 space-y-3" align="end">

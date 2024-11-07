@@ -53,18 +53,21 @@ export default function Home() {
     async (prompt: string) => {
       setGeneratingImage(true);
       setImageURL("");
-      const response = await fetch("/api/imagine", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt,
-          aspectRatio: imgAspectRatio,
-          replicateKey: apiConfig.replicateKey ?? null,
-        }),
-      });
-      const data = await response.json();
-      setImageURL(data.data || "");
+      try {
+        const response = await fetch("/api/imagine", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt,
+            aspectRatio: imgAspectRatio,
+            replicateKey: apiConfig.replicateKey ?? null,
+          }),
+        });
+        const data = await response.json();
+        setImageURL(data.data || "");
+      } catch (error) {
+        toast.error((error as Error).message);
+      }
       setGeneratingImage(false);
-      return data.data;
     },
     [apiConfig]
   );
