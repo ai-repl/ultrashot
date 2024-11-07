@@ -17,7 +17,13 @@ const ratelimit = redis
   : false;
 
 export async function POST(req: Request) {
-  if (process.env.NODE_ENV === "production" && ratelimit) {
+  const { prompt, openaiApiKey, openaiModel } = await req.json();
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    ratelimit &&
+    openaiModel === ""
+  ) {
     const ip = req.headers.get("x-real-ip") ?? "local";
     const rl = await ratelimit.limit(ip);
 
@@ -34,8 +40,6 @@ export async function POST(req: Request) {
       }
     );
   }
-
-  const { prompt, openaiApiKey, openaiModel } = await req.json();
 
   // roughly 4.5MB in base64
   if (prompt.length > 6_464_471) {

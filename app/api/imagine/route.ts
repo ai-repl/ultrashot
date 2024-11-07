@@ -13,7 +13,14 @@ const ratelimit = redis
   : false;
 
 export async function POST(req: NextRequest) {
-  if (process.env.NODE_ENV === "production" && ratelimit) {
+  // Extract the `prompt` from the body of the request
+  const { prompt, aspectRatio, replicateKey } = await req.json();
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    ratelimit &&
+    replicateKey === ""
+  ) {
     const ip = req.headers.get("x-real-ip") ?? "local";
     const rl = await ratelimit.limit(ip);
 
@@ -30,9 +37,6 @@ export async function POST(req: NextRequest) {
       }
     );
   }
-
-  // Extract the `prompt` from the body of the request
-  const { prompt, aspectRatio, replicateKey } = await req.json();
 
   const replicate = new Replicate({
     auth: replicateKey !== "" ? replicateKey : process.env.REPLICATE_API_KEY,
