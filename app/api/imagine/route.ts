@@ -4,6 +4,8 @@ import { Ratelimit } from "@upstash/ratelimit";
 
 import { redis } from "@/lib/redis";
 
+export const runtime = "edge";
+
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
