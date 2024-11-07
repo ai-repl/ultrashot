@@ -9,12 +9,14 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { copyBlobToClipboard } from "copy-image-clipboard";
+import { useAtom } from "jotai";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { copy, isSupportedImageType, toBase64 } from "@/lib";
 import { getImageAspectRatio } from "@/lib/image";
 import getRetinaImage from "@/lib/getRetinaImage";
+import { apiConfigAtom } from "./store";
 
 let imgAspectRatio = "16:9";
 
@@ -28,7 +30,14 @@ export default function Home() {
   const [imageURL, setImageURL] = useState<string | undefined>(undefined);
   const [detailDesc, setDetailDesc] = useState("");
   const [isCopying, setIsCopying] = useState(false);
+  const [apiConfig] = useAtom(apiConfigAtom);
+
   const { complete, completion, isLoading } = useCompletion({
+    api: "/api/completion",
+    body: {
+      openaiApiKey: apiConfig.openaiKey,
+      openaiModel: apiConfig.openaiModel,
+    },
     onError: (e) => {
       toast.error(e.message);
       setBlobURL(null);
@@ -40,18 +49,25 @@ export default function Home() {
     },
   });
 
-  const handleGenerateImage = useCallback(async (prompt: string) => {
-    setGeneratingImage(true);
-    setImageURL("");
-    const response = await fetch("/api/imagine", {
-      method: "POST",
-      body: JSON.stringify({ prompt, aspectRatio: imgAspectRatio }),
-    });
-    const data = await response.json();
-    setImageURL(data.data || "");
-    setGeneratingImage(false);
-    return data.data;
-  }, []);
+  const handleGenerateImage = useCallback(
+    async (prompt: string) => {
+      setGeneratingImage(true);
+      setImageURL("");
+      const response = await fetch("/api/imagine", {
+        method: "POST",
+        body: JSON.stringify({
+          prompt,
+          aspectRatio: imgAspectRatio,
+          replicateKey: apiConfig.replicateKey ?? null,
+        }),
+      });
+      const data = await response.json();
+      setImageURL(data.data || "");
+      setGeneratingImage(false);
+      return data.data;
+    },
+    [apiConfig]
+  );
 
   async function submit(file?: File | Blob) {
     if (!file) return;
@@ -258,7 +274,7 @@ export default function Home() {
           />
         </section>
 
-        <section className="space-y-3 p-3 min-w-sm lg:max-w-md 2xl:max-w-2xl rounded-md bg-white dark:bg-neutral-900 w-full drop-shadow-sm border-2">
+        <section className="space-y-3 p-3 min-w-sm lg:max-w-sm 2xl:max-w-lg rounded-md bg-white dark:bg-neutral-900 w-full drop-shadow-sm border-2">
           <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold select-none text-neutral-600 dark:text-neutral-400">
               Image detail description

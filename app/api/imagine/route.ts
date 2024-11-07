@@ -4,11 +4,6 @@ import { Ratelimit } from "@upstash/ratelimit";
 
 import { redis } from "@/lib/redis";
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_KEY,
-  useFileOutput: false,
-});
-
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
@@ -35,8 +30,14 @@ export async function POST(req: NextRequest) {
       }
     );
   }
+
   // Extract the `prompt` from the body of the request
-  const { prompt, aspectRatio } = await req.json();
+  const { prompt, aspectRatio, replicateKey } = await req.json();
+
+  const replicate = new Replicate({
+    auth: replicateKey ?? process.env.REPLICATE_API_KEY,
+    useFileOutput: false,
+  });
 
   const input = {
     prompt,

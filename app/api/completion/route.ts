@@ -8,14 +8,10 @@ import { isSupportedImageType } from "@/lib";
 
 export const runtime = "edge";
 
-const openai = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(5, "1440 m"),
+      limiter: Ratelimit.slidingWindow(3, "1440 m"),
       analytics: true,
     })
   : false;
@@ -39,7 +35,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { prompt } = await req.json();
+  const { prompt, openaiApiKey, openaiModel } = await req.json();
 
   // roughly 4.5MB in base64
   if (prompt.length > 6_464_471) {
@@ -60,8 +56,12 @@ export async function POST(req: Request) {
     );
   }
 
+  const openai = createOpenAI({
+    apiKey: openaiApiKey ?? process.env.OPENAI_API_KEY,
+  });
+
   const response = await streamText({
-    model: openai(process.env.OPENAI_MODEL ?? "gpt-4o-mini"),
+    model: openai(openaiModel ?? process.env.OPENAI_MODEL ?? "gpt-4o-mini"),
     messages: [
       {
         role: "user",

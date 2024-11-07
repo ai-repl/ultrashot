@@ -12,6 +12,7 @@ import Logo from "@/components/Logo";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { siteTitle, slogan } from "@/lib/constants";
+import ApiConfigMenu from "@/components/ApiConfigMenu";
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -38,6 +39,7 @@ export default function RootLayout({
                 </span>
               </h1>
               <nav className="flex items-center gap-2">
+                <ApiConfigMenu />
                 <DarkmodeToggle />
               </nav>
             </header>
@@ -76,7 +78,6 @@ export default function RootLayout({
               </p>
             </footer>
           </div>
-
           <Toaster richColors theme="system" position="top-center" />
           <Analytics />
         </ThemeProvider>

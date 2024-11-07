@@ -8,7 +8,7 @@ Image to text to Image, reimagine, quality, blink fast. Built with the [Vercel A
 
 - Clone the repository
 - Copy a `.env.local` file from `.env.example`
-  - with `OPENAI_API_KEY=your-api-key` where `your-api-key` is your OPENAI API key from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys).
-  - with `REPLICATE_API_KEY=your-api-key` where `your-api-key` is your Replicate API key from [https://replicate.com/account/api-tokens](https://replicate.com/account/api-tokens).
+  - Get the `OPENAI_API_KEY` from [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys).
+  - Get the `REPLICATE_API_KEY` from [https://replicate.com/account/api-tokens](https://replicate.com/account/api-tokens).
 - Run `pnpm install` to install dependencies.
 - Run `pnpm dev` to start the development server.
