@@ -105,9 +105,9 @@ export default function RootLayout({
                 </Button>
               </p>
               <p>
-                <a href="https://github.com/xiaoluoboding/ultrashot">GitHub</a>{" "}
-                / <a href="https://x.com/robert_shaw_x">Twitter</a> /{" "}
-                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fxiaoluoboding%2Fultrashot&env=OPENAI_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN&demo-title=ultrashot&demo-description=Image%20to%20text%20to%20audio%2C%20accurate%2C%20fast.&demo-url=https%3A%2F%2Fultrashot.vercel.app%2F&demo-image=https%3A%2F%2Fultrashot.vercel.app%2Fopengraph-image.png&skippable-integrations=1">
+                <a href="https://github.com/ai-repl/ultrashot">GitHub</a> /{" "}
+                <a href="https://x.com/robert_shaw_x">Twitter</a> /{" "}
+                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fai-repl%2Fultrashot&env=OPENAI_API_KEY,OPENAI_MODEL,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,REPLICATE_API_KEY&demo-title=UltraShot&demo-description=Image%20to%20text%20to%20Image%2C%20reimagine%2C%20ultra-fast%2C%20high-quality.&demo-url=https%3A%2F%2Fultrashot.vercel.app">
                   Deploy
                 </a>
               </p>
