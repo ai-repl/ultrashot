@@ -22,10 +22,14 @@ export async function POST(req: Request) {
   if (
     process.env.NODE_ENV === "production" &&
     ratelimit &&
-    openaiModel === ""
+    openaiApiKey === ""
   ) {
     const ip = req.headers.get("x-real-ip") ?? "local";
     const rl = await ratelimit.limit(ip);
+
+    console.log(process.env.NODE_ENV === "production");
+    console.log(openaiApiKey === "");
+    console.log(rl.success);
 
     if (!rl.success) {
       return new Response("Rate limit exceeded", { status: 429 });
