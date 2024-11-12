@@ -11,7 +11,7 @@ export const runtime = "edge";
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(3, "1440 m"),
+      limiter: Ratelimit.slidingWindow(1, "1440 m"),
       analytics: true,
     })
   : false;
