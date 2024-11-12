@@ -15,7 +15,7 @@ import { siteTitle, slogan } from "@/lib/constants";
 import ApiConfigMenu from "@/components/ApiConfigMenu";
 
 export const metadata: Metadata = {
-  title: siteTitle,
+  title: siteTitle + " - " + slogan,
   description: slogan,
   metadataBase: new URL("https://ultrashot.vercel.app"),
   openGraph: {
