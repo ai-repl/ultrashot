@@ -9,7 +9,7 @@ export const runtime = "edge";
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(2, "1440 m"),
+      limiter: Ratelimit.slidingWindow(4, "1440 m"),
       analytics: true,
     })
   : false;
@@ -27,7 +27,10 @@ export async function POST(req: NextRequest) {
     const rl = await ratelimit.limit(ip);
 
     if (!rl.success) {
-      return new Response("Rate limit exceeded", { status: 429 });
+      return new Response(
+        "You have exceeded the rate limit. You can create 2 images per day or use your own API key.",
+        { status: 429 }
+      );
     }
   }
 
