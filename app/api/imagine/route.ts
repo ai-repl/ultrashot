@@ -26,6 +26,12 @@ export async function POST(req: NextRequest) {
     const ip = req.headers.get("x-real-ip") ?? "local";
     const rl = await ratelimit.limit(ip);
 
+    console.log(ip);
+    console.log(process.env.NODE_ENV === "production");
+    console.log(replicateKey === "");
+    console.log(rl);
+    console.log(rl.success);
+
     if (!rl.success) {
       return new Response(
         "You have exceeded the rate limit. You can create 2 images per day or use your own API key.",

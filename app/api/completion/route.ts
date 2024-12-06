@@ -30,6 +30,7 @@ export async function POST(req: Request) {
     console.log(ip);
     console.log(process.env.NODE_ENV === "production");
     console.log(openaiApiKey === "");
+    console.log(rl);
     console.log(rl.success);
 
     if (!rl.success) {
