@@ -1,20 +1,11 @@
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
-import { Ratelimit } from "@upstash/ratelimit";
 
 import { decodeBase64Image } from "@/lib/image";
-import { redis } from "@/lib/redis";
+import { ratelimit } from "@/lib/redis";
 import { isSupportedImageType } from "@/lib";
 
 export const runtime = "edge";
-
-const ratelimit = redis
-  ? new Ratelimit({
-      redis: redis,
-      limiter: Ratelimit.slidingWindow(4, "1440 m"),
-      analytics: true,
-    })
-  : false;
 
 export async function POST(req: Request) {
   const { prompt, openaiApiKey, openaiModel } = await req.json();

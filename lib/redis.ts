@@ -1,3 +1,4 @@
+import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 const redis =
@@ -8,4 +9,12 @@ const redis =
       })
     : undefined;
 
-export { redis };
+const ratelimit = redis
+  ? new Ratelimit({
+      redis: redis,
+      limiter: Ratelimit.slidingWindow(4, "1440 m"),
+      analytics: true,
+    })
+  : false;
+
+export { redis, ratelimit };

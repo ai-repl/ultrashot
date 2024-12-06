@@ -1,18 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import Replicate from "replicate";
-import { Ratelimit } from "@upstash/ratelimit";
 
-import { redis } from "@/lib/redis";
+import { ratelimit } from "@/lib/redis";
 
 export const runtime = "edge";
-
-const ratelimit = redis
-  ? new Ratelimit({
-      redis: redis,
-      limiter: Ratelimit.slidingWindow(4, "1440 m"),
-      analytics: true,
-    })
-  : false;
 
 export async function POST(req: NextRequest) {
   // Extract the `prompt` from the body of the request
