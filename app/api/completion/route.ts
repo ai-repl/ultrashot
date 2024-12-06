@@ -1,10 +1,10 @@
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
+import { headers } from "next/headers";
 
 import { decodeBase64Image } from "@/lib/image";
 import { ratelimit } from "@/lib/redis";
 import { isSupportedImageType } from "@/lib";
-
 export const runtime = "edge";
 
 export async function POST(req: Request) {
@@ -15,10 +15,10 @@ export async function POST(req: Request) {
     ratelimit &&
     openaiApiKey === ""
   ) {
-    const ip = req.headers.get("x-real-ip") ?? "local";
-    const rl = await ratelimit.limit(ip);
+    const identifier = getIPAddress();
+    const rl = await ratelimit.limit(identifier);
 
-    console.log(ip);
+    console.log(identifier);
     console.log(process.env.NODE_ENV === "production");
     console.log(openaiApiKey === "");
     console.log(rl);
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
     if (!rl.success) {
       return new Response(
-        "You have exceeded the rate limit. You can create 2 images per day or use your own API key.",
+        "No requests left. Please add your own API key or try again in 24h.",
         { status: 429 }
       );
     }
@@ -89,4 +89,15 @@ export async function POST(req: Request) {
     ],
   });
   return response.toDataStreamResponse();
+}
+
+function getIPAddress() {
+  const FALLBACK_IP_ADDRESS = "0.0.0.0";
+  const forwardedFor = headers().get("x-forwarded-for");
+
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0] ?? FALLBACK_IP_ADDRESS;
+  }
+
+  return headers().get("x-real-ip") ?? FALLBACK_IP_ADDRESS;
 }

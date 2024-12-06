@@ -8,12 +8,13 @@ const redis =
         token: process.env.UPSTASH_REDIS_REST_TOKEN,
       })
     : undefined;
-
+// about 2 images per day
 const ratelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(4, "1440 m"),
+      limiter: Ratelimit.fixedWindow(4, "1440 m"),
       analytics: true,
+      prefix: "ultrashot",
     })
   : false;
 
