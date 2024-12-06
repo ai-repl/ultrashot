@@ -15,13 +15,12 @@ export async function POST(req: NextRequest) {
     ratelimit &&
     replicateKey === ""
   ) {
-    const identifier = getIPAddress();
+    const identifier = await getRequestIdentifier();
     const rl = await ratelimit.limit(identifier);
 
     console.log(identifier);
     console.log(process.env.NODE_ENV === "production");
     console.log(replicateKey === "");
-    console.log(rl);
     console.log(rl.success);
 
     if (!rl.success) {
@@ -65,13 +64,18 @@ export async function POST(req: NextRequest) {
   });
 }
 
-function getIPAddress() {
+async function getRequestIdentifier() {
+  // Get IP address from headers
   const FALLBACK_IP_ADDRESS = "0.0.0.0";
   const forwardedFor = headers().get("x-forwarded-for");
+  const ipAddress = forwardedFor
+    ? forwardedFor.split(",")[0] ?? FALLBACK_IP_ADDRESS
+    : headers().get("x-real-ip") ?? FALLBACK_IP_ADDRESS;
 
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0] ?? FALLBACK_IP_ADDRESS;
-  }
+  const request = await fetch(
+    `https://ipinfo.io/json?token=${process.env.IPINFO_TOKEN}`
+  );
+  const jsonResponse = await request.json();
 
-  return headers().get("x-real-ip") ?? FALLBACK_IP_ADDRESS;
+  return `${jsonResponse.loc}:${jsonResponse.country}`;
 }
