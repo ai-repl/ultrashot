@@ -18,11 +18,6 @@ export async function POST(req: NextRequest) {
     const identifier = await getRequestIdentifier();
     const rl = await ratelimit.limit(identifier);
 
-    console.log(identifier);
-    console.log(process.env.NODE_ENV === "production");
-    console.log(replicateKey === "");
-    console.log(rl.success);
-
     if (!rl.success) {
       return new Response(
         "No requests left. Please add your own API key or try again in 24h.",
