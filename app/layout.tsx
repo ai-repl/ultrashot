@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -17,11 +17,11 @@ import ApiConfigMenu from "@/components/ApiConfigMenu";
 export const metadata: Metadata = {
   title: siteTitle + " - " + slogan,
   description: slogan,
-  metadataBase: new URL("https://ultrashot.vercel.app"),
+  metadataBase: new URL("https://ultrashot.pictures"),
   openGraph: {
     title: siteTitle,
     description: slogan,
-    url: "https://ultrashot.vercel.app",
+    url: "https://ultrashot.pictures",
     siteName: siteTitle,
     images: [
       {
@@ -61,6 +61,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          defer
+          data-domain="ultrashot.pictures"
+          src="https://plausible.io/js/script.js"
+        ></script>
+      </head>
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-mono bg-neutral-50 dark:bg-neutral-950 text-black dark:text-white`}
       >
@@ -114,7 +121,7 @@ export default function RootLayout({
             </footer>
           </div>
           <Toaster richColors theme="system" position="top-center" />
-          <Analytics />
+          {/* <Analytics /> */}
         </ThemeProvider>
       </body>
     </html>
