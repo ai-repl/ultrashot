@@ -17,11 +17,11 @@ import ApiConfigMenu from "@/components/ApiConfigMenu";
 export const metadata: Metadata = {
   title: siteTitle + " - " + slogan,
   description: slogan,
-  metadataBase: new URL("https://ultrashot.pictures"),
+  metadataBase: new URL("https://ultrashot.pics"),
   openGraph: {
     title: siteTitle,
     description: slogan,
-    url: "https://ultrashot.pictures",
+    url: "https://ultrashot.pics",
     siteName: siteTitle,
     images: [
       {
@@ -64,7 +64,7 @@ export default function RootLayout({
       <head>
         <script
           defer
-          data-domain="ultrashot.pictures"
+          data-domain="ultrashot.pics"
           src="https://plausible.io/js/script.js"
         ></script>
       </head>
