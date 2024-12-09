@@ -208,7 +208,9 @@ export default function Home() {
       <div className="grow flex flex-col lg:flex-row gap-8 h-full">
         <section
           className={clsx(
-            "rounded-lg border-2 drop-shadow-sm text-neutral-700 dark:text-neutral-300 cursor-pointer border-dashed transition-colors ease-in-out bg-neutral-100 dark:bg-neutral-900 relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
+            "rounded-lg border-2 h-[400px] lg:h-auto drop-shadow-sm cursor-pointer border-dashed transition-colors ease-in-out relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
+            "text-neutral-700 dark:text-neutral-300",
+            "bg-neutral-100 dark:bg-neutral-900",
             {
               "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700":
                 !isDraggingOver,
@@ -222,7 +224,7 @@ export default function Home() {
               src={blobURL}
               unoptimized
               fill
-              className="lg:object-contain object-cover min-h-16"
+              className="object-contain min-h-16"
               alt="Uploaded image"
             />
           )}
@@ -326,7 +328,7 @@ export default function Home() {
 
         <section
           className={clsx(
-            "rounded-lg border-2 drop-shadow-sm text-neutral-700 dark:text-neutral-300 cursor-pointer border-dashed transition-colors ease-in-out bg-neutral-100 dark:bg-neutral-900 relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
+            "rounded-lg border-2 h-[400px] lg:h-auto drop-shadow-sm text-neutral-700 dark:text-neutral-300 cursor-pointer border-dashed transition-colors ease-in-out bg-neutral-100 dark:bg-neutral-900 relative group select-none grow pointer-events-none [@media(hover:hover)]:pointer-events-auto",
             "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
           )}
         >
@@ -334,7 +336,7 @@ export default function Home() {
             <img
               ref={imageEl}
               src={imageURL}
-              className="absolute inset-0 w-full h-full text-transparent lg:object-contain object-cover min-h-16"
+              className="absolute inset-0 w-full h-full text-transparent object-contain min-h-16"
               alt="Generated Image"
             />
           )}

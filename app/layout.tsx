@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: siteTitle,
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: siteTitle,
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: slogan,
     creator: "@robert_shaw_x",
-    images: ["/opengraph-image.png"],
+    images: ["/opengraph-image.jpg"],
   },
   robots: {
     index: true,
@@ -111,12 +111,25 @@ export default function RootLayout({
                   </Link>
                 </Button>
               </p>
-              <p>
-                <a href="https://github.com/ai-repl/ultrashot">GitHub</a> /{" "}
-                <a href="https://x.com/robert_shaw_x">Twitter</a> /{" "}
-                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fai-repl%2Fultrashot&env=OPENAI_API_KEY,OPENAI_MODEL,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,REPLICATE_API_KEY&demo-title=UltraShot&demo-description=Image%20to%20text%20to%20Image%2C%20reimagine%2C%20ultra-fast%2C%20high-quality.&demo-url=https%3A%2F%2Fultrashot.vercel.app">
+              <p className="my-8 lg:my-0">
+                <a href="https://github.com/ai-repl/ultrashot" target="_blank">
+                  GitHub
+                </a>{" "}
+                /{" "}
+                <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fai-repl%2Fultrashot&env=OPENAI_API_KEY,OPENAI_MODEL,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,REPLICATE_API_KEY,IPINFO_TOKEN&project-name=ultrashot&demo-title=UltraShot&demo-description=Image%20to%20text%20to%20Image%2C%20reimagine%2C%20ultra-fast%2C%20high-quality.&demo-url=https%3A%2F%2Fultrashot.pics&demo-image=https%3A%2F%2Fultrashot.pics%2Fpreview.jpg">
                   Deploy
-                </a>
+                </a>{" "}
+                /{" "}
+                <a href="https://x.com/robert_shaw_x" target="_blank">
+                  Twitter
+                </a>{" "}
+                /{" "}
+                <a
+                  href="https://bsky.app/profile/robertshaw.id"
+                  target="_blank"
+                >
+                  Blue Sky
+                </a>{" "}
               </p>
             </footer>
           </div>
