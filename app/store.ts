@@ -9,7 +9,7 @@ interface ApiConfiguration {
 
 export const apiConfigAtom = atomWithStorage<ApiConfiguration>("api-config", {
   openaiKey: "",
-  openaiModel: "gpt-4o-mini",
+  openaiModel: "gpt-4.1-mini",
   replicateKey: "",
   fluxModel: "",
 });

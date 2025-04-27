@@ -101,7 +101,7 @@ export default function RootLayout({
                 &
                 <Button variant="link" className="underline">
                   <Link href="https://openai.com/" target="_blank">
-                    OpenAI gpt-4o-mini
+                    OpenAI gpt-4.1-mini
                   </Link>
                 </Button>
                 &

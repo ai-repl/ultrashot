@@ -59,7 +59,7 @@ export async function POST(req: Request) {
   });
 
   const response = await streamText({
-    model: openai(openaiModel ?? process.env.OPENAI_MODEL ?? "gpt-4o-mini"),
+    model: openai(openaiModel ?? process.env.OPENAI_MODEL ?? "gpt-4.1-mini"),
     messages: [
       {
         role: "user",
